@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Dashboard - FitSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container glass-nav">
+            <h1 class="logo">Fit<span class="highlight">Sphere</span> Trainer</h1>
+            <nav class="nav">
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h3>Menu</h3>
+            <a href="#" class="active" onclick="showSection('members')">Assigned Members</a>
+            <a href="#" onclick="showSection('mark-attendance')">Mark Attendance</a>
+        </aside>
+
+        <main class="main-content">
+            <!-- Members Section -->
+            <section id="members-section">
+                <h2 class="section-title">My Members</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Member ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Join Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-table-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Mark Attendance Section -->
+            <section id="mark-attendance-section" style="display: none;">
+                <h2 class="section-title">Mark Attendance</h2>
+                <div class="glass-card" style="max-width: 500px;">
+                    <form id="markAttendanceForm">
+                        <div style="margin-bottom: 15px;">
+                            <label style="display:block; margin-bottom:5px;">Member ID</label>
+                            <input type="number" id="att_member_id" required
+                                style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display:block; margin-bottom:5px;">Date</label>
+                            <input type="date" id="att_date" required
+                                style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display:block; margin-bottom:5px;">Status</label>
+                            <select id="att_status"
+                                style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width:100%;">Submit Attendance</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

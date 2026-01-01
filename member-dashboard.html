@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - FitSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container glass-nav">
+            <h1 class="logo">Fit<span class="highlight">Sphere</span> Member</h1>
+            <nav class="nav">
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <h3>Menu</h3>
+            <a href="#" class="active" onclick="showSection('profile')">My Profile</a>
+            <a href="#" onclick="showSection('plans')">Membership Plans</a>
+            <a href="#" onclick="showSection('diet')">Diet Plans</a>
+            <a href="#" onclick="showSection('attendance')">Attendance</a>
+            <a href="#" onclick="showSection('classes')">Book Classes</a>
+            <a href="#" onclick="showSection('payments')">Payment History</a>
+            <a href="#" onclick="showSection('gym-info')">Gym Info</a>
+            <a href="#" onclick="showSection('help')">Help / Support</a>
+        </aside>
+        <button id="menu-btn">☰ MENU</button>
+
+        <main class="main-content">
+            <!-- Profile Section -->
+            <section id="profile-section">
+                <h2 class="section-title">My Profile</h2>
+                <div class="glass-card" style="text-align: left; max-width: 600px;">
+                    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                    <p><strong>Plan:</strong> <span id="profile-plan">None</span></p>
+                    <p><strong>Status:</strong> <span id="profile-status"
+                            style="color: var(--primary-color)">Active</span></p>
+                    <p><strong>Joined:</strong> <span id="profile-join">...</span></p>
+                    <br>
+                    <button class="btn-primary" onclick="openModal('editProfileModal')">Edit Profile</button>
+                    <button class="btn-primary"
+                        style="background-color: #ff4757; border-color: #ff4757; margin-left: 10px;"
+                        onclick="if(confirm('Are you sure you want to delete your account? This cannot be undone.')) deleteAccount()">Delete
+                        Account</button>
+                </div>
+            </section>
+
+            </section>
+
+            <!-- Plans Section -->
+            <section id="plans-section" style="display: none;">
+                <h2 class="section-title">Select Membership Plan</h2>
+                <div class="grid">
+                    <div class="glass-card">
+                        <h3>Weekly Plan</h3>
+                        <p style="font-size: 2rem; color: var(--primary-color);">1,000 PKR</p>
+                        <p>Access for 7 days</p>
+                        <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                            <li>Gym Access</li>
+                            <li>Locker Room</li>
+                        </ul>
+                        <button class="btn-primary" onclick="subscribePlan('Weekly', 1000)">Subscribe</button>
+                    </div>
+                    <div class="glass-card" style="border: 2px solid var(--primary-color);">
+                        <h3>Monthly Plan</h3>
+                        <p style="font-size: 2rem; color: var(--primary-color);">5,000 PKR</p>
+                        <p>Access for 30 days</p>
+                        <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                            <li>All Gym Access</li>
+                            <li>Trainer Support</li>
+                            <li>Locker Room</li>
+                        </ul>
+                        <button class="btn-primary" onclick="subscribePlan('Monthly', 5000)">Subscribe</button>
+                    </div>
+                    <div class="glass-card">
+                        <h3>Yearly Plan</h3>
+                        <p style="font-size: 2rem; color: var(--primary-color);">50,000 PKR</p>
+                        <p>Access for 365 days</p>
+                        <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                            <li>All Access + Spa</li>
+                            <li>Personal Trainer</li>
+                            <li>Free Merchandise</li>
+                        </ul>
+                        <button class="btn-primary" onclick="subscribePlan('Yearly', 50000)">Subscribe</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section id="attendance-section" style="display: none;">
+                <h2 class="section-title">My Attendance History</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendance-table-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Classes Section -->
+            <section id="classes-section" style="display: none;">
+                <h2 class="section-title">Available Classes</h2>
+                <div id="classes-grid" class="grid">
+                    <!-- Class cards will go here -->
+                </div>
+            </section>
+            <!-- Payments Section -->
+            <section id="payments-section" style="display: none;">
+                <h2 class="section-title">Payment History</h2>
+                <button class="btn-primary" style="margin-bottom: 20px;" onclick="openModal('paymentModal')">Pay
+                    Now</button>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payments-table-body"></tbody>
+                </table>
+            </section>
+
+    </div>
+    </section>
+
+    <!-- Diet Section -->
+    <section id="diet-section" style="display: none;">
+        <h2 class="section-title">Diet Maps & Guidelines</h2>
+        <div class="glass-card" style="margin-bottom: 20px;">
+            <label style="margin-right: 10px;">Select Your Goal:</label>
+            <select id="diet-goal-select" onchange="renderDietPlan(this.value)"
+                style="padding: 10px; background: rgba(0,0,0,0.5); color: white; border: var(--glass-border); border-radius: 5px;">
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="general">General Fitness</option>
+            </select>
+        </div>
+        <div id="diet-content">
+            <!-- Dynamic Content -->
+        </div>
+    </section>
+
+    <!-- Gym Info Section -->
+    <section id="gym-info-section" style="display: none;">
+        <h2 class="section-title">Gym Location & Contact</h2>
+        <div class="glass-card" style="text-align:left; max-width:600px;">
+            <h2><span id="view-gym-name">FitSphere</span></h2>
+            <p style="margin-top:10px;"><strong>Address:</strong> <span id="view-address">Loading...</span></p>
+            <p><strong>City:</strong> <span id="view-city">Loading...</span></p>
+            <p><strong>Email:</strong> <span id="view-email">Loading...</span></p>
+            <p><strong>Phone:</strong> <span id="view-phone">Loading...</span></p>
+            <div style="margin-top:20px;">
+                <!-- Placeholder for Map -->
+                <div id="map-container"
+                    style="width:100%; height:200px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; border-radius:10px;">
+                    Map View Coming Soon
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Help Section -->
+    <section id="help-section" style="display: none;">
+        <h2 class="section-title">Help / Support</h2>
+        <div class="grid">
+            <div class="glass-card" style="text-align:left;">
+                <h4>Submit New Request</h4>
+                <form id="memberHelpForm" style="margin-top:15px;">
+                    <input type="text" id="mem_help_subject" placeholder="Subject" required
+                        style="width:100%; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                    <textarea id="mem_help_message" placeholder="Message details..." required
+                        style="width:100%; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white; height:100px;"></textarea>
+                    <button type="submit" class="btn-primary" style="width:100%;">Submit</button>
+                </form>
+            </div>
+            <div class="glass-card" style="text-align:left;">
+                <h4>My Tickets</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-help-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    </main>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('editProfileModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">Update Profile</h2>
+            <form id="editProfileForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px;">Email</label>
+                    <input type="email" id="edit_email" required
+                        style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px;">Phone</label>
+                    <input type="text" id="edit_phone"
+                        style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            <h2 style="margin-bottom: 20px;">Make a Payment</h2>
+            <form id="paymentForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px;">Amount (PKR)</label>
+                    <input type="number" id="pay_amount" required min="1" placeholder="e.g. 5000"
+                        style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px;">Payment Method</label>
+                    <select id="pay_method" required
+                        style="width:100%; padding:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                        <option value="Easypaisa">Easypaisa</option>
+                        <option value="JazzCash">JazzCash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px; font-size: 0.9em; color: var(--text-muted);">
+                    <p>Note: This is a demo. No real money will be deducted.</p>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

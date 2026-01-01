@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitSphere - Gym Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container glass-nav">
+            <h1 class="logo">Fit<span class="highlight">Sphere</span></h1>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+                <a href="register.html" class="btn-login">Login</a>
+                <a href="#contact" class="btn-signup">Sign Up / Help</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="home" class="hero">
+        <div class="hero-content">
+            <h2>Evolve Your <span class="text-gradient">Potential</span></h2>
+            <p>Experience the next generation of fitness management. Track progress, manage schedules, and achieve your
+                goals with FitSphere.</p>
+            <div class="cta-group">
+                <a href="register.html" class="btn-primary glow-effect">Start Your Journey</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="circle-gradient"></div>
+            <!-- Placeholder for a dynamic 3D element or high-quality image -->
+        </div>
+    </main>
+
+    <section id="features" class="features-section">
+        <div class="container">
+            <h3>Why Choose FitSphere?</h3>
+            <div class="grid">
+                <div class="card glass-card">
+                    <div class="icon">🚀</div>
+                    <h4>Seamless Management</h4>
+                    <p>Effortless booking, scheduling, and member tracking.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="icon">📊</div>
+                    <h4>Real-time Analytics</h4>
+                    <p>Track your fitness progression with visualized data.</p>
+                </div>
+                <div class="card glass-card">
+                    <div class="icon">🛡️</div>
+                    <h4>Secure Access</h4>
+                    <p>Role-based security for Admins, Trainers, and Members.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="features-section" style="background: rgba(0,0,0,0.2);">
+        <div class="container">
+            <h3>Contact & Help Center</h3>
+            <div class="grid">
+                <div class="glass-card" style="text-align: left;">
+                    <h4>Visit Us</h4>
+                    <p id="landing-gym-name" style="margin-top:10px; color:var(--primary-color); font-weight:bold;">
+                        FitSphere</p>
+                    <p id="landing-address">Loading...</p>
+                    <p id="landing-city">Loading...</p>
+                    <p style="margin-top:20px;"><strong>Contact:</strong></p>
+                    <p id="landing-phone">...</p>
+                    <p id="landing-email">...</p>
+                </div>
+                <div class="glass-card" style="text-align: left;">
+                    <h4>Need Help?</h4>
+                    <p>Have questions? Send us a message!</p>
+                    <form id="publicHelpForm" style="margin-top:20px;">
+                        <input type="text" id="help_subject" placeholder="Subject" required
+                            style="width:100%; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                        <input type="text" id="help_contact" placeholder="Your Phone/Email" required
+                            style="width:100%; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white;">
+                        <textarea id="help_message" placeholder="How can we help?" required
+                            style="width:100%; padding:10px; margin-bottom:10px; background:rgba(0,0,0,0.3); border:var(--glass-border); color:white; height:100px;"></textarea>
+                        <button type="submit" class="btn-primary" style="width:100%;">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple script to load gym info and handle help form on landing page
+        // MOCK VERSION - NO SERVER
+        
+        async function loadLandingInfo() {
+            // Simulate delay
+            await new Promise(r => setTimeout(r, 200));
+            
+            const info = {
+                gym_name: 'FitSphere Gym',
+                address: '123 Fitness Blvd',
+                city: 'Metropolis',
+                contact_phone: '555-0199',
+                contact_email: 'info@fitsphere.com'
+            };
+
+            if (info) {
+                document.getElementById('landing-gym-name').textContent = info.gym_name || 'FitSphere';
+                document.getElementById('landing-address').textContent = info.address || 'Loading...';
+                document.getElementById('landing-city').textContent = info.city || '';
+                document.getElementById('landing-phone').textContent = info.contact_phone || '';
+                document.getElementById('landing-email').textContent = info.contact_email || '';
+            }
+        }
+
+        document.getElementById('publicHelpForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('help_subject').value;
+            const contact_info = document.getElementById('help_contact').value;
+            const message = document.getElementById('help_message').value;
+
+            // Mock submission
+            alert('Message sent! We will contact you shortly.');
+            document.getElementById('publicHelpForm').reset();
+        });
+
+        loadLandingInfo();
+    </script>
+</body>
+
+</html>

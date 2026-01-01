@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FitSphere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: var(--glass-border);
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-full {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .auth-footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+        }
+
+        /* Style for select options to be visible on dark bg */
+        option {
+            background-color: #1e1e24;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="glass-card auth-card">
+            <h2>Join FitSphere</h2>
+            <p style="margin-bottom: 20px;">Start your fitness journey today</p>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="full_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <div style="position: relative;">
+                        <input type="password" id="password" required style="padding-right: 40px;">
+                        <span onclick="togglePassword('password', this)"
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: white;">👁️</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Role</label>
+                        <select id="role" onchange="toggleFields()">
+                            <option value="member">Member</option>
+                            <option value="trainer">Trainer</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="phone" placeholder="Your contact number">
+                </div>
+
+                <!-- Trainer Specific -->
+                <div id="trainerFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Specialization</label>
+                        <input type="text" id="specialization" placeholder="e.g. Yoga, HIIT">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary btn-full glow-effect">Register</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                input.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+
+        function toggleFields() {
+            const role = document.getElementById('role').value;
+            const trainerFields = document.getElementById('trainerFields');
+            if (role === 'trainer') {
+                trainerFields.style.display = 'block';
+            } else {
+                trainerFields.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
